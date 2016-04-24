@@ -59,17 +59,17 @@ public class Line  {
 	/**
 	 * @Crea linea a traves de una cordenada, siendo el flag el que distingue entre cordenada en abscisa u ordenadas
 	 */
-	public Line(double cordenada, boolean flag){
+	public Line(double coordenada, boolean flag){
 		
 		if(flag==true){
 			
-		this.a= new Vertex(cordenada,0);
-		this.b = new Vertex(cordenada,1);
+		this.a= new Vertex(coordenada,0);
+		this.b = new Vertex(coordenada,1);
 		}
 		else{
 			
-		this.a = new Vertex(0,cordenada);
-		this.b = new Vertex(1,cordenada);
+		this.a = new Vertex(0,coordenada);
+		this.b = new Vertex(1,coordenada);
 		
 		}	
 	}
