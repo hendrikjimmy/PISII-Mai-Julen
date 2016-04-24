@@ -44,19 +44,28 @@ public class Polygon{
 		double zcrossproduct = 0; 
 		
 		for(int i = 0;i<this.vertexList.size()-2;i++){
-			if(i < this.vertexList.size()-3){
+			boolean iMenorVrtx = i < this.vertexList.size()-3;
+			if(iMenorVrtx){
 				double dx1 = this.vertexList.get(i+1).getX()-this.vertexList.get(i).getX();
 				double dy1 = this.vertexList.get(i+1).getY()-this.vertexList.get(i).getY();
 				double dx2 = this.vertexList.get(i+2).getX()-this.vertexList.get(i+1).getX();
 				double dy2 = this.vertexList.get(i+2).getY()-this.vertexList.get(i+1).getY();
-				if (((dx1*dy2) - (dy1*dx2)) >= 0 && zcrossproduct<0 || (((dx1*dy2) - (dy1*dx2))<= 0 && zcrossproduct > 0)) return false; 
+				
+				boolean auxConvex1 = ((dx1*dy2) - (dy1*dx2)) >= 0 && zcrossproduct<0 || (((dx1*dy2) - (dy1*dx2))<= 0 && zcrossproduct > 0);
+				if (auxConvex1){
+					return false; 
+				}
 				zcrossproduct = ((dx1*dy2) - (dy1*dx2));
 			}else{
 				double dx1 = this.vertexList.get(i+1).getX()-this.vertexList.get(i).getX();
 				double dy1 = this.vertexList.get(i+1).getY()-this.vertexList.get(i).getY();
 				double dx2 = this.vertexList.get(0).getX()-this.vertexList.get(i+1).getX();
 				double dy2 = this.vertexList.get(0).getY()-this.vertexList.get(i+1).getY();
-				if (((dx1*dy2) - (dy1*dx2)) >= 0 && zcrossproduct<0 || (((dx1*dy2) - (dy1*dx2))<= 0 && zcrossproduct > 0)) return false; 
+				
+				boolean auxConvex2 = ((dx1*dy2) - (dy1*dx2)) >= 0 && zcrossproduct<0 || (((dx1*dy2) - (dy1*dx2))<= 0 && zcrossproduct > 0);
+				if (auxConvex2){
+					return false; 
+				}
 				zcrossproduct = ((dx1*dy2) - (dy1*dx2));
 			}
 			
@@ -148,7 +157,9 @@ public class Polygon{
 		Boolean formaTriangulo;
 		while((auxiliar.vertexList.size() >= 3)){		
 			formaTriangulo = true;
-			if(current+1> auxiliar.vertexList.size()-1){
+			
+			boolean currentMayorAux= current+1 > auxiliar.vertexList.size()-1;
+			if(currentMayorAux){
 				current=0;
 			}
 			Vertex verticeActual = auxiliar.vertexList.get(current);
@@ -173,7 +184,9 @@ public class Polygon{
 			Vertex punto = new Vertex();
 			for(int i=0;i<=auxiliar.vertexList.size()-1;i++){
 				punto = auxiliar.vertexList.get(i);
-				if(!(punto.equals(verticeActual) || punto.equals(verticeLeft) || punto.equals(verticeRight))){
+				
+				boolean auxTriangulacion = !(punto.equals(verticeActual) || punto.equals(verticeLeft) || punto.equals(verticeRight));
+				if(auxTriangulacion){
 					if(estaDentro(punto, polyPeque)){
 						//System.out.println("Hay un punto dentro de Polipeque "+punto);
 						formaTriangulo = false;
