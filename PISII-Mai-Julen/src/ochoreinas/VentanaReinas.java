@@ -7,17 +7,12 @@ package ochoreinas;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class VentanaReinas extends Frame {
-
-	public static void main(String[] args) {
-		VentanaReinas world = new VentanaReinas();
-		world.show();
-	}
-
+	
 	private Reina ultimaReina = null;
-
+	
 	public VentanaReinas() {
 		setTitle("Problema de las ocho reinas");
 		setSize(600, 500);
@@ -29,6 +24,13 @@ public class VentanaReinas extends Frame {
 		addWindowListener(new CloseQuit());
 	}
 
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) {
+		VentanaReinas world = new VentanaReinas();
+		world.show();
+	}
+	
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		// dibuja el tablero
@@ -38,7 +40,6 @@ public class VentanaReinas extends Frame {
 		}
 		g.drawString("Pulse con para una nueva solución", 20, 470);
 		// draw queens
-		//ultimaReina.paint(g);
 		paint(g, ultimaReina);
 	}
 	
@@ -61,13 +62,16 @@ public class VentanaReinas extends Frame {
 		g.drawOval(x + 20, y + 20, 10, 10);
 	}
 
+	
 	private class CloseQuit extends WindowAdapter {
+		@Override
 		public void windowClosing(WindowEvent e) {
-			System.exit(0);
+			dispose();
 		}
 	}
 
 	private class MouseKeeper extends MouseAdapter {
+		@Override
 		public void mousePressed(MouseEvent e) {
 			ultimaReina.avanza();
 			repaint();
