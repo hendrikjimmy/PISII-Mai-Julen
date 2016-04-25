@@ -15,52 +15,52 @@ class Reina {
 
 	// constructor
 	Reina(int c, Reina n) {
-		fila = 1;
-		columna = c;
-		vecina = n;
+		setFila(1);
+		setColumna(c);
+		setVecina(n);
 	}
 
 	public boolean buscaSolucion() {
-		while (vecina != null && vecina.puedeAtacar(fila, columna))
+		while (getVecina() != null && getVecina().puedeAtacar(getFila(), getColumna()))
 			if (!avanza())
 				return false;
 		return true;
 	}
 
 	public boolean avanza() {
-		if (fila < 8) {
-			fila++;
+		if (getFila() < 8) {
+			setFila(getFila() + 1);
 			return buscaSolucion();
 		}
-		if (vecina != null) {
-			if (!vecina.avanza())
+		if (getVecina() != null) {
+			if (!getVecina().avanza())
 				return false;
-			if (!vecina.buscaSolucion())
+			if (!getVecina().buscaSolucion())
 				return false;
 		} else
 			return false;
-		fila = 1;
+		setFila(1);
 		return buscaSolucion();
 
 	}
 
 	private boolean puedeAtacar(int testfila, int testcolumna) {
-		int columnaDiferencia = testcolumna - columna;
-		if ((fila == testfila) || (fila + columnaDiferencia == testfila) || (fila - columnaDiferencia == testfila))
+		int columnaDiferencia = testcolumna - getColumna();
+		if ((getFila() == testfila) || (getFila() + columnaDiferencia == testfila) || (getFila() - columnaDiferencia == testfila))
 			return true;
-		if (vecina != null)
-			return vecina.puedeAtacar(testfila, testcolumna);
+		if (getVecina() != null)
+			return getVecina().puedeAtacar(testfila, testcolumna);
 		return false;
 	}
 
 	public void paint(Graphics g) {
 		// primero dibuja la vecina vecina
-		if (vecina != null)
-			vecina.paint(g);
+		if (getVecina() != null)
+			getVecina().paint(g);
 		// despues a ella misna
 		// x, y is upper left corner
-		int x = (fila - 1) * 50 + 10;
-		int y = (columna - 1) * 50 + 40;
+		int x = (getFila() - 1) * 50 + 10;
+		int y = (getColumna() - 1) * 50 + 40;
 		g.drawLine(x + 5, y + 45, x + 45, y + 45);
 		g.drawLine(x + 5, y + 45, x + 5, y + 5);
 		g.drawLine(x + 45, y + 45, x + 45, y + 5);
@@ -70,6 +70,30 @@ class Reina {
 		g.drawLine(x + 25, y + 5, x + 35, y + 20);
 		g.drawLine(x + 35, y + 20, x + 45, y + 5);
 		g.drawOval(x + 20, y + 20, 10, 10);
+	}
+
+	public Reina getVecina() {
+		return vecina;
+	}
+
+	public void setVecina(Reina vecina) {
+		this.vecina = vecina;
+	}
+
+	public int getFila() {
+		return fila;
+	}
+
+	public void setFila(int fila) {
+		this.fila = fila;
+	}
+
+	public int getColumna() {
+		return columna;
+	}
+
+	public void setColumna(int columna) {
+		this.columna = columna;
 	}
 
 }

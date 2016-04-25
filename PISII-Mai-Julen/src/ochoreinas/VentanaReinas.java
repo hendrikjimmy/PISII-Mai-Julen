@@ -38,7 +38,27 @@ public class VentanaReinas extends Frame {
 		}
 		g.drawString("Pulse con para una nueva solución", 20, 470);
 		// draw queens
-		ultimaReina.paint(g);
+		//ultimaReina.paint(g);
+		paint(g, ultimaReina);
+	}
+	
+	public void paint(Graphics g, Reina reina) {
+		// primero dibuja la vecina vecina
+		if (reina.getVecina() != null)
+			reina.getVecina().paint(g);
+		// despues a ella misna
+		// x, y is upper left corner
+		int x = (reina.getFila() - 1) * 50 + 10;
+		int y = (reina.getColumna() - 1) * 50 + 40;
+		g.drawLine(x + 5, y + 45, x + 45, y + 45);
+		g.drawLine(x + 5, y + 45, x + 5, y + 5);
+		g.drawLine(x + 45, y + 45, x + 45, y + 5);
+		g.drawLine(x + 5, y + 35, x + 45, y + 35);
+		g.drawLine(x + 5, y + 5, x + 15, y + 20);
+		g.drawLine(x + 15, y + 20, x + 25, y + 5);
+		g.drawLine(x + 25, y + 5, x + 35, y + 20);
+		g.drawLine(x + 35, y + 20, x + 45, y + 5);
+		g.drawOval(x + 20, y + 20, 10, 10);
 	}
 
 	private class CloseQuit extends WindowAdapter {
